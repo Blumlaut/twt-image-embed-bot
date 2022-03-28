@@ -19,13 +19,17 @@ process.on('unhandledRejection', function(err) {
 client.on('messageCreate', async msg => {
     if (msg.author.id == client.user.id) { return }
 
-    if (msg.channel.id != config.DiscordChannel) {
-        return
-    }
+    if (msg.channel.id != config.DiscordChannel) {return}
+
     var content = msg.cleanContent
 
     if (content.search('twitter.com') != -1) {
-        var url = content.match(/(https?:\/\/[^ ]*)/)[1];
+        var url = ""
+        try {
+            url = content.match(/(https?:\/\/[^ ]*)/)[1];
+        } catch {
+            return false
+        }
         var attachments = [] 
         const twtScraper = await TwitterScraper.create();
         const tweetMeta = await twtScraper.getTweetMeta(url);
