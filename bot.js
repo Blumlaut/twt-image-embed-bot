@@ -36,8 +36,7 @@ client.on('messageCreate', async msg => {
         
         if (tweetMeta.isImage) {
             for (const image of tweetMeta.media_url) {
-                var imageURL = image.url.replace('.jpg', '.png')
-                attachments.push(imageURL)
+                attachments.push(imageURL+":orig")
             }
             if (attachments.length >= 1) {
                 msg.channel.send({
