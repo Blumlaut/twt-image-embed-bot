@@ -19,33 +19,40 @@ process.on('unhandledRejection', function(err) {
 client.on('messageCreate', async msg => {
     if (msg.author.id == client.user.id) { return }
 
-    if (msg.channel.id != config.DiscordChannel) {return}
+    if (!config.DiscordChannels) {
+        console.log("Please configure the Discord Channels in the config.json")
+        process.exit(1)
+        return
+    }
 
-    var content = msg.cleanContent
 
-    if (content.search('twitter.com') != -1) {
-        var url = ""
-        try {
-            url = content.match(/(https?:\/\/[^ ]*)/)[1];
-        } catch {
-            return false
-        }
-        var attachments = [] 
-        const twtScraper = await TwitterScraper.create();
-        const tweetMeta = await twtScraper.getTweetMeta(url);
-        
-        if (tweetMeta.isImage) {
-            for (const image of tweetMeta.media_url) {
-                var imageURL = image.url.replace('.jpg', '.png')+'?format=png&name=large'
-                attachments.push(imageURL)
+    if (config.DiscordChannels.includes(msg.channel.id)) {
+        var content = msg.cleanContent
+
+        if (content.search('twitter.com') != -1) {
+            var url = ""
+            try {
+                url = content.match(/(https?:\/\/[^ ]*)/)[1];
+            } catch {
+                return false
             }
-            if (attachments.length >= 1) {
-                msg.channel.send({
-                    content: '<'+url+'>',
-                    files: attachments
-                })
+            var attachments = [] 
+            const twtScraper = await TwitterScraper.create();
+            const tweetMeta = await twtScraper.getTweetMeta(url);
+            
+            if (tweetMeta.isImage) {
+                for (const image of tweetMeta.media_url) {
+                    var imageURL = image.url.replace('.jpg', '.png')+'?format=png&name=large'
+                    attachments.push(imageURL)
+                }
+                if (attachments.length >= 1) {
+                    msg.channel.send({
+                        content: '<'+url+'>',
+                        files: attachments
+                    })
+                }
+    
             }
-
         }
     }
 })

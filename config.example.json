@@ -1,4 +1,8 @@
 {
     "DiscordToken": "Your Discord Bot Token",
-    "DiscordChannel": "Your Discord Channel ID"
+    "DiscordChannels": [
+        "ChannelId1",
+        "ChannelId2",
+        "ChannelId3"
+    ]
 }
