@@ -36,6 +36,7 @@ client.on('messageCreate', async msg => {
             } catch {
                 return false
             }
+            if (msg.attachments.first()) { return }
             var attachments = [] 
             const twtScraper = await TwitterScraper.create();
             const tweetMeta = await twtScraper.getTweetMeta(url);
