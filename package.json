@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@tcortega/twitter-scraper": "^0.2.4",
-    "discord.js": "^13.6.0"
+    "@tcortega/twitter-scraper": "0.2.4",
+    "discord.js": "13.6.0"
   }
 }
