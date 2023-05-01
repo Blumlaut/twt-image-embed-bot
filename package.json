@@ -11,6 +11,6 @@
   "license": "ISC",
   "dependencies": {
     "@tcortega/twitter-scraper": "0.2.4",
-    "discord.js": "13.8.1"
+    "discord.js": "14.10.0"
   }
 }
